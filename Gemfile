@@ -24,7 +24,7 @@ gem "jbuilder"
 
 gem "devise"
 gem 'devise-bootstrap-views', '~> 1.0'
-gem 'alphavantage'
+gem 'finnhub_ruby', '~> 2.0.0'
 gem "csv"
 gem 'fontawesome_icons_rails'
 

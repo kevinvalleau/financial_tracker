@@ -1,8 +1,15 @@
 class Stock < ApplicationRecord
   def self.new_lookup(ticker_symbol)
-    # https://github.com/codespore/alphavantage_ruby
-    # https://www.alphavantage.co/documentation/
-    quote = Alphavantage::TimeSeries.new(symbol: ticker_symbol).quote
-    quote.previous_close #=> "719.6900"
+    client = FinnhubRuby::DefaultApi.new
+    # https://github.com/Finnhub-Stock-API/finnhub-ruby
+    # https://finnhub.io/docs/api/rate-limit
+    profile = client.company_profile2({symbol: ticker_symbol})
+    quote = client.quote(ticker_symbol)
+    puts profile["name"]
+    if profile["name"].blank? || quote["pc"].blank?
+      return nil
+    else
+      return new(ticker: ticker_symbol, name: profile["name"], last_price: quote["pc"])
+    end
   end
 end
