@@ -1,0 +1,7 @@
+<%= turbo_stream.update "flash_messages" do %>
+  <%= render "layouts/messages" %>
+<% end %>
+
+<%= turbo_stream.update "stock_result" do %>
+  <%= render "users/result", stock: @stock %>
+<% end %>

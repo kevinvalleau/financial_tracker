@@ -1,8 +1,11 @@
+<div id="flash_messages">
+</div>
+
 <h1>My Portfolio</h1>
 
 <div class="search-area">
     <h3>Search Stocks</h3>
-    <%= form_with url: search_stock_path, method: :get, data: { turbo_frame: "stock_result" } do %>
+    <%= form_with url: search_stock_path(format: :turbo_stream), method: :get do %>
       <div class="form-group row">
           <div class="col-sm-9 no-right-padding">
               <%= text_field_tag :stock, params[:stock], placeholder: "Stock ticker symbol", autofocus: true, class: "form-control form-control-lg" %>
@@ -18,5 +21,9 @@
     <% end %>
 </div>
 <%= turbo_frame_tag "stock_result" do %>
-  <%= render "users/result", stock: @stock %>
+    <%= render "users/result", stock: @stock %>
+<% end %>
+
+<% if !@tracked_stocks.empty? %>
+  <%= render 'stocks/list'%>
 <% end %>
