@@ -17,4 +17,8 @@ class Stock < ApplicationRecord
       return new(ticker: ticker_symbol, name: profile["name"], last_price: quote["pc"])
     end
   end
+
+  def self.check_db(ticker_symbol)
+    where(ticker: ticker_symbol).first
+  end
 end
