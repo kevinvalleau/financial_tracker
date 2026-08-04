@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_03_182300) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_04_190246) do
+  create_table "friendships", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "friend_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["friend_id"], name: "index_friendships_on_friend_id"
+    t.index ["user_id"], name: "index_friendships_on_user_id"
+  end
+
   create_table "stocks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.decimal "last_price"
@@ -32,6 +41,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_03_182300) do
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "first_name"
+    t.string "last_name"
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
@@ -40,6 +51,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_03_182300) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "friendships", "users"
+  add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "user_stocks", "stocks"
   add_foreign_key "user_stocks", "users"
 end
