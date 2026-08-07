@@ -24,6 +24,6 @@
     <%= render "users/friend_result", friends: @friends %>
 <% end %>
 
-<% if !@friends.empty? %>
+<% if @friends && !@friends.empty? %>
     <%= render 'friends/list'%>
 <% end %>
